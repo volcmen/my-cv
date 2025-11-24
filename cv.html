@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David - Senior Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            line-height: 1.3;
+        }
+
+        .header .title {
+            color: #e0e7ff;
+            font-size: 1.55em;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            line-height: 1.4;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 0;
+            font-size: 0.92em;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.95;
+            transition: opacity 0.2s ease;
+        }
+
+        .contact-item:not(:last-child)::after {
+            content: "|";
+            margin-left: 8px;
+            opacity: 0.5;
+        }
+
+        .contact-item a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contact-item a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .remote-tag {
+            color: #a0ffc6;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .summary {
+            background: #f8f9fa;
+            padding: 25px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 35px;
+            border-radius: 4px;
+        }
+
+        .summary p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #667eea;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-weight: 600;
+        }
+
+        .job {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .job:last-child {
+            border-bottom: none;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .company {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .duration {
+            background: #e3e8ff;
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .job-description {
+            margin-top: 15px;
+        }
+
+        .job-description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .job-description li {
+            padding-left: 25px;
+            margin-bottom: 10px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .job-description li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+
+
+        .skills-compact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-row {
+            display: flex;
+            align-items: flex-start;
+            /* Aligns label with top of skill list */
+            gap: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f4f8;
+        }
+
+        .skill-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .skill-label {
+            font-weight: 700;
+            color: #2c3e50;
+            min-width: 180px;
+            /* Fixed width for alignment */
+            flex-shrink: 0;
+            font-size: 0.9em;
+            padding-top: 5px;
+            /* Visual alignment with pills */
+            border: none;
+            margin: 0;
+            text-transform: none;
+            letter-spacing: normal;
+            display: block;
+        }
+
+        .skill-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .skill-pill {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .skill-pill:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .skills-compact {
+                gap: 15px;
+            }
+
+            .skill-row {
+                flex-direction: column;
+                gap: 8px;
+                align-items: stretch;
+                border-right: none;
+                padding-right: 0;
+            }
+
+            .skill-label {
+                min-width: auto;
+                color: #667eea;
+                padding-top: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+        }
+
+        .education-item,
+        .language-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .education-item h4,
+        .language-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .education-year {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .languages {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .language-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 20px 45px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                color: black;
+            }
+
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                border: none;
+            }
+
+            .header {
+                background: none;
+                color: black;
+                padding: 20px 0;
+                border-bottom: 2px solid #000;
+            }
+
+            .header h1 {
+                color: black;
+            }
+
+            .header .title {
+                color: #333;
+            }
+
+            .contact-item a {
+                color: black;
+                text-decoration: none;
+            }
+
+            .section-title {
+                color: black;
+                border-bottom-color: black;
+            }
+
+            .company,
+            .job-title,
+            .duration,
+            .skill-category h4,
+            .education-year,
+            .highlight {
+                color: black;
+            }
+
+            .skill-category {
+                border-left-color: black;
+                border: 1px solid #eee;
+            }
+
+            .summary {
+                border-left-color: black;
+                background: none;
+                color: black;
+            }
+
+            .job-description li:before {
+                color: black;
+            }
+
+            a {
+                color: black;
+                text-decoration: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .job-header {
+                flex-direction: column;
+            }
+
+            .duration {
+                margin-top: 10px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>David David</h1>
+            <div class="title">Senior Software Engineer</div>
+            <div class="divider"></div>
+            <div class="contact-info">
+                <div class="contact-item">📧 <a href="mailto:volcmen@gmail.com">volcmen@gmail.com</a></div>
+                <div class="contact-item">📱 +972-50-583-5712</div>
+                <div class="contact-item">💼 <a href="https://linkedin.com/in/volcmen"
+                        target="_blank">linkedin.com/in/volcmen</a></div>
+                <div class="contact-item">💻 <a href="https://github.com/volcmen" target="_blank">github.com/volcmen</a>
+                </div>
+                <!-- <div class="contact-item">🌐 <a href="https://volcmen.github.io" target="_blank">volcmen.github.io</a>
+                </div> -->
+                <div class="contact-item">📍 Tel-Aviv, Israel</div>
+                <div class="contact-item remote-tag">Available for Remote</div>
+
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="summary">
+                <p>Senior Full Stack Engineer with <strong>8+ years</strong> of experience architecting scalable,
+                    high-performance web applications and cloud infrastructure. Expert in <strong>React, Node.js, and
+                        DevOps automation (AWS/GCP)</strong>, delivering enterprise-grade solutions for SaaS and EdTech
+                    markets. Proven track record of leading technical initiatives that support <strong>100K+ active
+                        users</strong>, optimizing system reliability, and accelerating deployment cycles. Adept at
+                    bridging the gap between complex backend logic and intuitive user experiences. Strong problem-solving
+                    approach with attention to detail, effective verbal communication skills, and organizational abilities that
+                    contribute to successful cross-functional collaboration and project delivery.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Professional Experience</h2>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="company">Alison.AI</div>
+                            <div class="job-title">Full Stack Engineer & DevOps Lead</div>
+                        </div>
+                        <div class="duration">2023 - 2025</div>
+                    </div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Architected and deployed automated data aggregation service integrating multiple APIs,
+                                reducing client activation time from <strong>days to minutes</strong> and enabling CSM
+                                team to serve <strong>50+ clients monthly</strong></li>
+                            <li>Contributed to CI/CD architecture and automation improvements, facilitating the
+                                migration from Jenkins to GitHub Actions which cut deployment time from <strong>45
+                                    minutes to under 24 minutes</strong>, accelerating feature delivery through effective
+                                cross-team communication and organizational planning</li>
+                            <li>Led comprehensive security initiative, identifying and resolving <strong>100+ CVE
+                                    vulnerabilities</strong> across multiple packages, ensuring compliance and
+                                maintaining system integrity through meticulous attention to detail and systematic problem-solving</li>
+                            <li>Engineered and maintained full-stack web platform using React, Node.js, and TypeScript,
+                                delivering pixel-perfect, responsive UI/UX serving a substantial daily active user base
+                            </li>
+                            <li>Enhanced infrastructure stability and optimized DevOps operations, facilitating seamless
+                                service migrations, dependency updates, and zero-downtime deployments across the GCP
+                                cloud environment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="company">Datadog</div>
+                            <div class="job-title">Senior Software Engineer</div>
+                        </div>
+                        <div class="duration">2022 - 2023</div>
+                    </div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Led post-acquisition integration of Seekret's API observability platform into Datadog's
+                                ecosystem, successfully migrating services and architecting unified UI for
+                                <strong>enterprise-scale API monitoring</strong>
+                            </li>
+                            <li>Collaborated across multiple product teams (RUM, Dashboard, Session Replay) to deliver
+                                cohesive observability features, ensuring seamless cross-product functionality and user
+                                experience through excellent verbal communication and organized project coordination</li>
+                            <li>Developed high-performance React components and data visualization interfaces handling
+                                <strong>millions of API requests daily</strong>, optimizing for real-time monitoring
+                                capabilities
+                            </li>
+                            <li>Contributed to architectural decisions for distributed systems, ensuring scalability and
+                                reliability across global infrastructure</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="company">Seekret (Acquired by Datadog)</div>
+                            <div class="job-title">Senior Full Stack Engineer</div>
+                        </div>
+                        <div class="duration">2021 - 2022</div>
+                    </div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Engineered production-grade web application and Backend-for-Frontend (BFF) service,
+                                ensuring seamless API integration and optimal data flow architecture</li>
+                            <li>Collaborated closely with UI/UX teams to achieve best-in-class web design, delivering
+                                pixel-perfect, intuitive interfaces that drove <strong>95% user satisfaction
+                                    scores</strong> through attention to detail and clear communication of technical requirements</li>
+                            <li>Owned service reliability, security compliance, and performance optimization,
+                                implementing monitoring solutions and maintaining <strong>99.9% uptime SLA</strong></li>
+                            <li>Established security best practices including dependency auditing, vulnerability
+                                patching, and secure authentication implementation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="company">CoderZ</div>
+                            <div class="job-title">Full Stack Engineer</div>
+                        </div>
+                        <div class="duration">2019 - 2021</div>
+                    </div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Designed and implemented custom compiler translating Scratch visual programming to Lego
+                                EV3/LeJOS, empowering <strong>100,000+ students</strong> globally to learn robotics and
+                                coding fundamentals</li>
+                            <li>Built comprehensive Content Management System (CMS) from scratch, enabling product
+                                internationalization across <strong>5+ languages</strong> and expanding market reach by
+                                <strong>40%</strong>
+                            </li>
+                            <li>Established end-to-end test automation infrastructure using Cypress, reducing QA time by
+                                <strong>60%</strong> and improving release confidence with <strong>500+ automated test
+                                    cases</strong>, demonstrating strong organizational skills and systematic problem-solving approach
+                            </li>
+                            <li>Architected scalable backend services supporting educational platform serving thousands
+                                of concurrent users with sub-second response times</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="company">Mindflow (Acquired by CoderZ)</div>
+                            <div class="job-title">Software Engineer</div>
+                        </div>
+                        <div class="duration">2018 - 2019</div>
+                    </div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Designed and implemented multiple enterprise dashboards and data visualization systems
+                                with full-stack ownership (React, Node.js, databases)</li>
+                            <li>Developed multiplayer Unity game from ground up, implementing real-time networking, game
+                                logic, and engaging user experience</li>
+                            <li>Migrated legacy C++ desktop application to modern Electron framework, modernizing UI and
+                                extending cross-platform compatibility</li>
+                            <li>Engineered Elasticsearch and Kibana-based search solution with Excel database
+                                integration, enabling powerful data discovery for enterprise clients</li>
+                            <li>Created suite of automation tools using Node.js, Go, and Python to optimize development
+                                workflows and boost team productivity</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="company">Early Career Experience</div>
+                            <div class="job-title">Full Stack Developer</div>
+                        </div>
+                        <div class="duration">2017 - 2018</div>
+                    </div>
+                    <div class="job-description">
+                        <ul>
+                            <li><strong>Freelance:</strong> Delivered cross-industry software solutions for multiple
+                                clients using modern JavaScript ecosystem (React, Angular, Vue.js, Node.js, GraphQL,
+                                React Native)</li>
+                            <li><strong>Beatman:</strong> Contributed to serverless architecture implementation,
+                                developed Progressive Web App (PWA), and delivered features across React and Angular
+                                codebases</li>
+                            <li><strong>Comversion:</strong> Built admin web application with AngularJS and contributed
+                                to Node.js backend development as founding team member</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-compact">
+                    <div class="skill-row">
+                        <div class="skill-label">Languages & Frameworks</div>
+                        <div class="skill-content">
+                            <span class="skill-pill">TypeScript (JavaScript)</span>
+                            <span class="skill-pill">React.js</span>
+                            <span class="skill-pill">Node.js</span>
+                            <span class="skill-pill">Next.js</span>
+                            <span class="skill-pill">Go (Golang)</span>
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">C#</span>
+                            <span class="skill-pill">GraphQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">Cloud & Infrastructure</div>
+                        <div class="skill-content">
+                            <span class="skill-pill">Amazon Web Services (AWS)</span>
+                            <span class="skill-pill">Google Cloud (GCP)</span>
+                            <span class="skill-pill">Kubernetes (K8s)</span>
+                            <span class="skill-pill">Docker</span>
+                            <span class="skill-pill">Terraform (IaC)</span>
+                            <span class="skill-pill">GitHub Actions (CI/CD)</span>
+                            <span class="skill-pill">Linux/Bash</span>
+                            <span class="skill-pill">Serverless</span>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">Databases & Storage</div>
+                        <div class="skill-content">
+                            <span class="skill-pill">PostgreSQL</span>
+                            <span class="skill-pill">MySQL</span>
+                            <span class="skill-pill">MongoDB (NoSQL)</span>
+                            <span class="skill-pill">Redis</span>
+                            <span class="skill-pill">Elasticsearch</span>
+                            <span class="skill-pill">Query Optimization</span>
+                            <span class="skill-pill">Sharding</span>
+                            <span class="skill-pill">Pooling</span>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-label">Concepts & Practices</div>
+                        <div class="skill-content">
+                            <span class="skill-pill">System Design</span>
+                            <span class="skill-pill">Microservices</span>
+                            <span class="skill-pill">Event-Driven Architecture</span>
+                            <span class="skill-pill">DevSecOps</span>
+                            <span class="skill-pill">Unit & E2E Testing</span>
+                            <span class="skill-pill">Agile/Scrum</span>
+                            <span class="skill-pill">Performance Tuning</span>
+                            <span class="skill-pill">OAuth2/JWT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <h4>Intensive Software Development Program</h4>
+                    <div class="education-year">2016 - 2017</div>
+                    <p>Comprehensive training in Java, Android, backend development, and modern web technologies</p>
+                </div>
+                <div class="education-item">
+                    <h4>Bachelor of Computer Science (BCS)</h4>
+                    <div class="education-year">2011 - 2015</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Languages</h2>
+                <div class="languages">
+                    <div class="language-item">
+                        <h4>Russian</h4>
+                        <p>Native</p>
+                    </div>
+                    <div class="language-item">
+                        <h4>English</h4>
+                        <p>Professional Proficiency</p>
+                    </div>
+                    <div class="language-item">
+                        <h4>Hebrew</h4>
+                        <p>Intermediate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

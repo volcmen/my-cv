@@ -1,0 +1,24 @@
+{
+  "name": "volcmen-cv",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "generate-pdf": "bun run scripts/generate-pdf.ts"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "24.31.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "bun": ">=1.3.3"
+  }
+}
+
