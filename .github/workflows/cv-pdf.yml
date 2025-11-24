@@ -1,0 +1,62 @@
+name: Generate CV PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cv.html'
+      - 'package.json'
+  pull_request:
+    paths:
+      - 'cv.html'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  generate-pdf:
+    name: Generate PDF from HTML
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to create tags and releases
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Generate PDF
+        run: bun run scripts/generate-pdf.ts
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdf
+          path: cv.pdf
+          retention-days: 90
+
+      - name: Get version
+        id: version
+        if: github.event_name != 'pull_request'
+        run: |
+          VERSION=$(bun -e "const pkg = await Bun.file('package.json').json(); console.log(pkg.version);")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          PREVIOUS=$(git show HEAD~1:package.json 2>/dev/null | bun -e "const pkg = await Bun.file(0).json(); console.log(pkg.version);" 2>/dev/null || echo "")
+          [ "$PREVIOUS" != "$VERSION" ] && echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        if: steps.version.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: CV v${{ steps.version.outputs.version }}
+          files: cv.pdf
