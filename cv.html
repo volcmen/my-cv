@@ -6,6 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>David - Senior Software Engineer</title>
     <style>
+        :root {
+            /* Colors */
+            --primary-color: #2c3e50;
+            --accent-color: #667eea;
+            --accent-gradient-start: #667eea;
+            --accent-gradient-end: #764ba2;
+            --text-color: #334155;
+            --text-light: #64748b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success-color: #a0ffc6;
+
+            /* Spacing Scale (Tailwind-style: base unit = 0.25rem = 4px) */
+            --spacing-0: 0;
+            --spacing-1: 0.25rem;
+            /* 4px */
+            --spacing-2: 0.5rem;
+            /* 8px */
+            --spacing-3: 0.75rem;
+            /* 12px */
+            --spacing-4: 1rem;
+            /* 16px */
+            --spacing-5: 1.25rem;
+            /* 20px */
+            --spacing-6: 1.5rem;
+            /* 24px */
+            --spacing-8: 2rem;
+            /* 32px */
+            --spacing-10: 2.5rem;
+            /* 40px */
+            --spacing-12: 3rem;
+            /* 48px */
+
+            /* Typography */
+            --font-main: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --line-height-base: 1.5;
+            --line-height-tight: 1.2;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,54 +53,56 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background: #f5f7fa;
-            padding: 20px;
+            font-family: var(--font-main);
+            line-height: var(--line-height-base);
+            color: var(--text-color);
+            background: var(--bg-color);
+            padding: var(--spacing-6);
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 850px;
             margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             border-radius: 8px;
             overflow: hidden;
         }
 
+        /* Header Redesign */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--accent-gradient-start) 0%, var(--accent-gradient-end) 100%);
             color: white;
-            padding: 35px 30px;
+            padding: var(--spacing-6) var(--spacing-6);
             text-align: center;
+            position: relative;
         }
 
         .header h1 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: var(--spacing-1);
             font-weight: 700;
-            letter-spacing: 0.8px;
-            line-height: 1.3;
+            letter-spacing: -0.02em;
+            line-height: var(--line-height-tight);
         }
 
         .header .title {
-            color: #e0e7ff;
-            font-size: 1.55em;
-            margin-bottom: 20px;
-            opacity: 0.95;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.95em;
+            margin-bottom: var(--spacing-2);
             font-weight: 500;
             letter-spacing: 0.3px;
-            line-height: 1.4;
+            text-transform: uppercase;
         }
 
         .contact-info {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 0;
-            font-size: 0.92em;
+            gap: var(--spacing-4);
+            font-size: 0.9em;
+            margin-top: var(--spacing-4);
             align-items: center;
         }
 
@@ -70,260 +112,240 @@
             gap: 6px;
             opacity: 0.95;
             transition: opacity 0.2s ease;
+            position: relative;
         }
 
         .contact-item:not(:last-child)::after {
-            content: "|";
-            margin-left: 8px;
+            content: "•";
+            position: absolute;
+            right: calc(-1 * var(--spacing-2) - 2px);
             opacity: 0.5;
+            font-size: 0.8em;
+        }
+
+        .contact-item:hover {
+            opacity: 1;
         }
 
         .contact-item a {
-            color: #ffffff;
+            color: white;
             text-decoration: none;
-            transition: all 0.2s ease;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
         }
 
         .contact-item a:hover {
-            opacity: 1;
-            text-decoration: underline;
+            border-bottom-color: rgba(255, 255, 255, 0.6);
         }
 
         .remote-tag {
-            color: #a0ffc6;
+            color: var(--success-color);
             font-weight: 600;
         }
 
+        .divider {
+            display: none;
+            /* Hidden in new design */
+        }
+
+        /* Content Layout */
         .content {
-            padding: 40px;
+            padding: var(--spacing-8);
         }
 
         .summary {
-            background: #f8f9fa;
-            padding: 25px;
-            border-left: 4px solid #667eea;
-            margin-bottom: 35px;
-            border-radius: 4px;
+            background: #f8fafc;
+            padding: var(--spacing-4) var(--spacing-6);
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: var(--spacing-6);
+            border-radius: 0 4px 4px 0;
         }
 
         .summary p {
-            font-size: 1.05em;
-            line-height: 1.7;
-            color: #34495e;
+            font-size: 1em;
+            color: var(--primary-color);
+            line-height: 1.6;
         }
 
         .section {
-            margin-bottom: 40px;
+            margin-bottom: var(--spacing-6);
         }
 
         .section-title {
-            font-size: 1.6em;
-            color: #667eea;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-            font-weight: 600;
+            font-size: 1.1em;
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-4);
+            padding-bottom: var(--spacing-1);
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
         }
 
+        /* Job Cards */
         .job {
-            margin-bottom: 30px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #e1e8ed;
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 1px dashed var(--border-color);
         }
 
         .job:last-child {
             border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .job-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
+            align-items: baseline;
+            margin-bottom: var(--spacing-2);
         }
 
         .job-title {
-            font-size: 1.2em;
+            font-size: 1.05em;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-color);
+            line-height: 1.3;
+            margin-top: 3px;
         }
 
         .company {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 1.1em;
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.2em;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
         }
 
         .duration {
-            background: #e3e8ff;
-            color: #667eea;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            font-size: 0.8em;
+            color: #5b21b6;
             font-weight: 600;
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            padding: 4px 12px;
+            border-radius: 12px;
             white-space: nowrap;
-        }
-
-        .job-description {
-            margin-top: 15px;
+            border: 1px solid #c4b5fd;
         }
 
         .job-description ul {
             list-style: none;
-            padding-left: 0;
         }
 
         .job-description li {
-            padding-left: 25px;
-            margin-bottom: 10px;
+            padding-left: 18px;
+            margin-bottom: 6px;
             position: relative;
-            line-height: 1.6;
+            font-size: 0.95em;
+            color: var(--text-color);
         }
 
         .job-description li:before {
-            content: "▸";
+            content: "•";
             position: absolute;
             left: 0;
-            color: #667eea;
+            color: var(--accent-color);
             font-weight: bold;
             font-size: 1.2em;
+            line-height: 1;
+            top: 2px;
         }
 
-
-
+        /* Skills Grid */
         .skills-compact {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-4);
         }
 
         .skill-row {
             display: flex;
-            align-items: flex-start;
-            /* Aligns label with top of skill list */
-            gap: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #f0f4f8;
-        }
-
-        .skill-row:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
+            flex-direction: column;
+            gap: var(--spacing-1);
+            border: none;
+            padding: 0;
         }
 
         .skill-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
             font-weight: 700;
-            color: #2c3e50;
-            min-width: 180px;
-            /* Fixed width for alignment */
-            flex-shrink: 0;
-            font-size: 0.9em;
-            padding-top: 5px;
-            /* Visual alignment with pills */
-            border: none;
-            margin: 0;
-            text-transform: none;
-            letter-spacing: normal;
-            display: block;
+            min-width: auto;
+            padding: 0;
+            margin-bottom: 4px;
         }
 
         .skill-content {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            flex: 1;
+            gap: 6px;
         }
 
         .skill-pill {
-            background: #f1f5f9;
-            color: #475569;
-            padding: 3px 10px;
-            border-radius: 6px;
+            background: var(--bg-color);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 4px;
             font-size: 0.85em;
             font-weight: 500;
-            border: 1px solid #e2e8f0;
-            white-space: nowrap;
+            border: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
 
         .skill-pill:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: white;
             transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        @media (max-width: 768px) {
-            .skills-compact {
-                gap: 15px;
-            }
-
-            .skill-row {
-                flex-direction: column;
-                gap: 8px;
-                align-items: stretch;
-                border-right: none;
-                padding-right: 0;
-            }
-
-            .skill-label {
-                min-width: auto;
-                color: #667eea;
-                padding-top: 0;
-                border-bottom: none;
-                margin-bottom: 0;
-            }
-        }
-
+        /* Education & Languages */
         .education-item,
         .language-item {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 15px;
+            background: transparent;
+            padding: 0;
+            margin-bottom: var(--spacing-4);
+            border-left: 3px solid var(--border-color);
+            padding-left: var(--spacing-4);
+            border-radius: 0;
         }
 
         .education-item h4,
         .language-item h4 {
-            color: #2c3e50;
-            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-size: 1em;
+            margin-bottom: 2px;
         }
 
         .education-year {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9em;
+            color: var(--text-light);
+            font-size: 0.85em;
+            margin-bottom: 4px;
         }
 
         .languages {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-4);
         }
 
         .language-item {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
+            text-align: left;
+            margin: 0;
         }
 
-        .highlight {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .divider {
-            height: 1px;
-            background: #e2e8f0;
-            margin: 20px 45px;
-        }
-
+        /* Print Optimization */
         @media print {
             body {
                 background: white;
                 padding: 0;
-                color: black;
+                font-size: 11pt;
             }
 
             .container {
@@ -335,68 +357,85 @@
             .header {
                 background: none;
                 color: black;
-                padding: 20px 0;
+                padding: 0 0 20px 0;
                 border-bottom: 2px solid #000;
+                text-align: left;
             }
 
             .header h1 {
                 color: black;
+                font-size: 24pt;
+                margin: 0;
             }
 
             .header .title {
-                color: #333;
+                color: #444;
+                margin: 5px 0 10px 0;
+            }
+
+            .contact-info {
+                justify-content: flex-start;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .contact-item {
+                background: none;
+                padding: 0;
+                color: black;
+                opacity: 1;
             }
 
             .contact-item a {
                 color: black;
-                text-decoration: none;
+            }
+
+            .summary {
+                background: none;
+                border: none;
+                padding: 10px 0;
+                margin-bottom: 20px;
+                font-style: italic;
             }
 
             .section-title {
                 color: black;
-                border-bottom-color: black;
+                border-bottom: 1px solid black;
+                margin-top: 20px;
             }
 
-            .company,
-            .job-title,
-            .duration,
-            .skill-category h4,
-            .education-year,
-            .highlight {
-                color: black;
+            .job {
+                page-break-inside: avoid;
+                border-bottom: none;
+                margin-bottom: 15px;
             }
 
-            .skill-category {
-                border-left-color: black;
-                border: 1px solid #eee;
-            }
-
-            .summary {
-                border-left-color: black;
+            .skill-pill {
+                border: 1px solid #ccc;
                 background: none;
-                color: black;
             }
 
-            .job-description li:before {
-                color: black;
-            }
-
-            a {
-                color: black;
-                text-decoration: none;
+            .remote-tag {
+                display: none;
             }
         }
 
-        @media (max-width: 768px) {
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header {
+                padding: var(--spacing-6);
+            }
+
+            .content {
+                padding: var(--spacing-6);
+            }
+
             .job-header {
                 flex-direction: column;
+                gap: 4px;
             }
 
-            .duration {
-                margin-top: 10px;
-            }
-
-            .skills-grid {
+            .languages {
                 grid-template-columns: 1fr;
             }
         }
@@ -420,20 +459,21 @@
                 </div> -->
                 <div class="contact-item">📍 Tel-Aviv, Israel</div>
                 <div class="contact-item remote-tag">Available for Remote</div>
-
             </div>
         </div>
 
         <div class="content">
             <div class="summary">
-                <p>Senior Full Stack Engineer with <strong>8+ years</strong> of experience architecting scalable,
-                    high-performance web applications and cloud infrastructure. Expert in <strong>React, Node.js, and
-                        DevOps automation (AWS/GCP)</strong>, delivering enterprise-grade solutions for SaaS and EdTech
-                    markets. Proven track record of leading technical initiatives that support <strong>100K+ active
-                        users</strong>, optimizing system reliability, and accelerating deployment cycles. Adept at
-                    bridging the gap between complex backend logic and intuitive user experiences. Strong problem-solving
-                    approach with attention to detail, effective verbal communication skills, and organizational abilities that
-                    contribute to successful cross-functional collaboration and project delivery.</p>
+                <p>Results-oriented <strong>Senior Software Engineer</strong> with <strong><span id="exp-years"></span>+
+                        years of experience</strong> architecting and delivering high-scale,
+                    enterprise-grade web applications.
+                    Expert in <strong>React, Node.js, and Cloud Infrastructure (AWS/GCP)</strong>, with a specialized
+                    focus on <strong>System Design</strong>, <strong>AI Integration</strong>, and <strong>DevOps
+                        Automation</strong>. Proven ability to lead technical initiatives that support <strong>100K+
+                        active users</strong>, reduce deployment cycles by <strong>40%+</strong>, and optimize system
+                    reliability to <strong>99.9% SLA</strong>. Adept at bridging the gap between complex backend logic
+                    and intuitive user experiences, mentoring cross-functional teams, and driving innovation in SaaS and
+                    EdTech markets.</p>
             </div>
 
             <div class="section">
@@ -449,22 +489,28 @@
                     </div>
                     <div class="job-description">
                         <ul>
-                            <li>Architected and deployed automated data aggregation service integrating multiple APIs,
-                                reducing client activation time from <strong>days to minutes</strong> and enabling CSM
-                                team to serve <strong>50+ clients monthly</strong></li>
-                            <li>Contributed to CI/CD architecture and automation improvements, facilitating the
-                                migration from Jenkins to GitHub Actions which cut deployment time from <strong>45
-                                    minutes to under 24 minutes</strong>, accelerating feature delivery through effective
-                                cross-team communication and organizational planning</li>
-                            <li>Led comprehensive security initiative, identifying and resolving <strong>100+ CVE
-                                    vulnerabilities</strong> across multiple packages, ensuring compliance and
-                                maintaining system integrity through meticulous attention to detail and systematic problem-solving</li>
-                            <li>Engineered and maintained full-stack web platform using React, Node.js, and TypeScript,
-                                delivering pixel-perfect, responsive UI/UX serving a substantial daily active user base
-                            </li>
-                            <li>Enhanced infrastructure stability and optimized DevOps operations, facilitating seamless
-                                service migrations, dependency updates, and zero-downtime deployments across the GCP
-                                cloud environment</li>
+                            <li><strong>High-Scale System Architecture:</strong> Spearheaded the design and deployment
+                                of an automated data aggregation engine integrating multiple third-party APIs. This
+                                initiative reduced client activation time from <strong>days to minutes</strong>,
+                                enabling the Customer Success team to onboard <strong>50+ enterprise clients
+                                    monthly</strong> with zero engineering intervention.</li>
+                            <li><strong>DevOps Transformation & CI/CD Modernization:</strong> Architecting
+                                enterprise-grade CI/CD pipelines for both existing and new microservices.
+                                Implemented industry best practices including automated testing, security scanning,
+                                artifact caching, and deployment strategies, resulting in a reduction in
+                                deployment time, and significantly enhanced developer velocity
+                                across the organization.</li>
+                            <li><strong>Security & Compliance Leadership:</strong> Directed a comprehensive security
+                                overhaul, identifying and remediating <strong>100+ critical CVE vulnerabilities</strong>
+                                across the codebase. Established automated security scanning protocols to ensure
+                                continuous compliance and system integrity.</li>
+                            <li><strong>Full Stack Development:</strong> Engineered a robust, pixel-perfect web platform
+                                using <strong>React, Node.js, and TypeScript</strong>, delivering a responsive and
+                                intuitive UI/UX for a data-intensive AI application serving a global user base.</li>
+                            <li><strong>Cloud Infrastructure Optimization:</strong> Managed and optimized <strong>GCP
+                                    cloud resources</strong>, implementing Infrastructure as Code (IaC) practices to
+                                facilitate seamless service migrations, dependency updates, and <strong>zero-downtime
+                                    deployments</strong>.</li>
                         </ul>
                     </div>
                 </div>
@@ -479,19 +525,21 @@
                     </div>
                     <div class="job-description">
                         <ul>
-                            <li>Led post-acquisition integration of Seekret's API observability platform into Datadog's
-                                ecosystem, successfully migrating services and architecting unified UI for
-                                <strong>enterprise-scale API monitoring</strong>
-                            </li>
-                            <li>Collaborated across multiple product teams (RUM, Dashboard, Session Replay) to deliver
-                                cohesive observability features, ensuring seamless cross-product functionality and user
-                                experience through excellent verbal communication and organized project coordination</li>
-                            <li>Developed high-performance React components and data visualization interfaces handling
-                                <strong>millions of API requests daily</strong>, optimizing for real-time monitoring
-                                capabilities
-                            </li>
-                            <li>Contributed to architectural decisions for distributed systems, ensuring scalability and
-                                reliability across global infrastructure</li>
+                            <li><strong>Post-Acquisition Integration:</strong> Orchestrated the complex technical
+                                integration of Seekret's proprietary API observability technology into the Datadog
+                                ecosystem. Successfully migrated microservices and architected a unified, cohesive UI
+                                for <strong>enterprise-scale API monitoring</strong>.</li>
+                            <li><strong>High-Performance Frontend Engineering:</strong> Developed and optimized
+                                React-based data visualization interfaces capable of handling <strong>millions of daily
+                                    API requests</strong>. Implemented virtualized lists and efficient state management
+                                to ensure real-time observability performance.</li>
+                            <li><strong>Cross-Product Collaboration:</strong> Collaborated extensively with RUM,
+                                Dashboard, and Session Replay teams to deliver seamless cross-product features.
+                                Championed code quality standards and technical documentation, facilitating knowledge
+                                transfer and smoother onboarding for new team members.</li>
+                            <li><strong>Distributed Systems Architecture:</strong> Contributed to high-level
+                                architectural decisions for distributed systems, ensuring high availability, fault
+                                tolerance, and scalability across Datadog's global infrastructure.</li>
                         </ul>
                     </div>
                 </div>
@@ -506,15 +554,19 @@
                     </div>
                     <div class="job-description">
                         <ul>
-                            <li>Engineered production-grade web application and Backend-for-Frontend (BFF) service,
-                                ensuring seamless API integration and optimal data flow architecture</li>
-                            <li>Collaborated closely with UI/UX teams to achieve best-in-class web design, delivering
-                                pixel-perfect, intuitive interfaces that drove <strong>95% user satisfaction
-                                    scores</strong> through attention to detail and clear communication of technical requirements</li>
-                            <li>Owned service reliability, security compliance, and performance optimization,
-                                implementing monitoring solutions and maintaining <strong>99.9% uptime SLA</strong></li>
-                            <li>Established security best practices including dependency auditing, vulnerability
-                                patching, and secure authentication implementation</li>
+                            <li><strong>Founding Engineer Role:</strong> Played a pivotal role in building the core SaaS
+                                platform from the ground up, engineering a production-grade web application and
+                                Backend-for-Frontend (BFF) service that drove the company's acquisition.</li>
+                            <li><strong>Product Excellence:</strong> Collaborated closely with Product and Design teams
+                                to implement best-in-class web interfaces, achieving a <strong>95% user satisfaction
+                                    score</strong> through meticulous attention to detail and user-centric design
+                                principles.</li>
+                            <li><strong>Reliability Engineering:</strong> Owned service reliability and performance
+                                optimization, implementing comprehensive monitoring and alerting solutions (using
+                                Datadog and Sentry) to maintain a <strong>99.9% uptime SLA</strong>.</li>
+                            <li><strong>Security Best Practices:</strong> Established foundational security practices,
+                                including automated dependency auditing, secure authentication flows (OAuth2/JWT), and
+                                role-based access control (RBAC).</li>
                         </ul>
                     </div>
                 </div>
@@ -529,19 +581,26 @@
                     </div>
                     <div class="job-description">
                         <ul>
-                            <li>Designed and implemented custom compiler translating Scratch visual programming to Lego
-                                EV3/LeJOS, empowering <strong>100,000+ students</strong> globally to learn robotics and
-                                coding fundamentals</li>
-                            <li>Built comprehensive Content Management System (CMS) from scratch, enabling product
-                                internationalization across <strong>5+ languages</strong> and expanding market reach by
-                                <strong>40%</strong>
-                            </li>
-                            <li>Established end-to-end test automation infrastructure using Cypress, reducing QA time by
-                                <strong>60%</strong> and improving release confidence with <strong>500+ automated test
-                                    cases</strong>, demonstrating strong organizational skills and systematic problem-solving approach
-                            </li>
-                            <li>Architected scalable backend services supporting educational platform serving thousands
-                                of concurrent users with sub-second response times</li>
+                            <li><strong>Post-Acquisition Integration & Game Engine:</strong> Led the technical migration
+                                and integration of the acquired Mindflow multiplayer game into the CoderZ platform.
+                                Configured real-time multiplayer infrastructure and engineered a runtime execution
+                                engine enabling <strong>Scratch block code</strong> to drive gameplay logic directly
+                                within the game environment.</li>
+                            <li><strong>Compiler Design & Implementation:</strong> Designed and implemented a custom
+                                cross-compiler translating Scratch-based visual programming blocks to Lego EV3/LeJOS
+                                Java code. This innovation empowered <strong>100,000+ students globally</strong> to
+                                learn robotics and coding fundamentals.</li>
+                            <li><strong>Global CMS Architecture:</strong> Built a comprehensive, custom Content
+                                Management System (CMS) from scratch, enabling seamless product internationalization
+                                across <strong>5+ languages</strong>. This directly contributed to a <strong>40%
+                                    expansion</strong> in market reach.</li>
+                            <li><strong>Test Automation Infrastructure:</strong> Established a robust end-to-end test
+                                automation framework using <strong>Cypress</strong>. Authored <strong>500+ automated
+                                    test cases</strong>, reducing manual QA cycles by <strong>60%</strong> and
+                                significantly improving release confidence.</li>
+                            <li><strong>Scalable Backend Engineering:</strong> Architected and maintained scalable
+                                Node.js backend services supporting an educational platform serving thousands of
+                                concurrent users with sub-second response times.</li>
                         </ul>
                     </div>
                 </div>
@@ -556,16 +615,18 @@
                     </div>
                     <div class="job-description">
                         <ul>
-                            <li>Designed and implemented multiple enterprise dashboards and data visualization systems
-                                with full-stack ownership (React, Node.js, databases)</li>
-                            <li>Developed multiplayer Unity game from ground up, implementing real-time networking, game
-                                logic, and engaging user experience</li>
-                            <li>Migrated legacy C++ desktop application to modern Electron framework, modernizing UI and
-                                extending cross-platform compatibility</li>
-                            <li>Engineered Elasticsearch and Kibana-based search solution with Excel database
-                                integration, enabling powerful data discovery for enterprise clients</li>
-                            <li>Created suite of automation tools using Node.js, Go, and Python to optimize development
-                                workflows and boost team productivity</li>
+                            <li><strong>Full Stack Dashboard Development:</strong> Designed and implemented multiple
+                                enterprise-grade dashboards and data visualization systems, taking full ownership of the
+                                stack from React frontend to Node.js backend and database design.</li>
+                            <li><strong>Game Development & Networking:</strong> Developed a multiplayer Unity game from
+                                the ground up, implementing complex real-time networking logic and ensuring a
+                                synchronized, engaging user experience.</li>
+                            <li><strong>Legacy Modernization:</strong> Led the migration of a legacy C++ desktop
+                                application to the modern <strong>Electron</strong> framework, revitalizing the UI and
+                                enabling cross-platform compatibility (Windows/macOS).</li>
+                            <li><strong>Search Engine Implementation:</strong> Engineered a powerful search solution
+                                using <strong>Elasticsearch and Kibana</strong>, integrating with Excel databases to
+                                enable rapid data discovery and analytics for enterprise clients.</li>
                         </ul>
                     </div>
                 </div>
@@ -580,14 +641,15 @@
                     </div>
                     <div class="job-description">
                         <ul>
-                            <li><strong>Freelance:</strong> Delivered cross-industry software solutions for multiple
-                                clients using modern JavaScript ecosystem (React, Angular, Vue.js, Node.js, GraphQL,
-                                React Native)</li>
-                            <li><strong>Beatman:</strong> Contributed to serverless architecture implementation,
-                                developed Progressive Web App (PWA), and delivered features across React and Angular
-                                codebases</li>
-                            <li><strong>Comversion:</strong> Built admin web application with AngularJS and contributed
-                                to Node.js backend development as founding team member</li>
+                            <li><strong>Freelance Consultant:</strong> Delivered diverse software solutions for multiple
+                                clients, leveraging the modern JavaScript ecosystem (React, Angular, Vue.js, Node.js,
+                                GraphQL, React Native) to meet specific business needs.</li>
+                            <li><strong>Beatman:</strong> Contributed to the implementation of serverless architectures
+                                and developed high-performance Progressive Web Apps (PWA), ensuring offline capabilities
+                                and mobile-first experiences.</li>
+                            <li><strong>Comversion:</strong> As a founding team member, built the core admin web
+                                application using AngularJS and contributed to the development of the Node.js backend
+                                infrastructure.</li>
                         </ul>
                     </div>
                 </div>
@@ -599,9 +661,10 @@
                     <div class="skill-row">
                         <div class="skill-label">Languages & Frameworks</div>
                         <div class="skill-content">
-                            <span class="skill-pill">TypeScript (JavaScript)</span>
+                            <span class="skill-pill">TypeScript</span>
+                            <span class="skill-pill">JavaScript (ES6+)</span>
                             <span class="skill-pill">React.js</span>
-                            <span class="skill-pill">Node.js</span>
+                            <span class="skill-pill">Node.js/Bun</span>
                             <span class="skill-pill">Next.js</span>
                             <span class="skill-pill">Go (Golang)</span>
                             <span class="skill-pill">Python</span>
@@ -610,16 +673,17 @@
                         </div>
                     </div>
                     <div class="skill-row">
-                        <div class="skill-label">Cloud & Infrastructure</div>
+                        <div class="skill-label">Cloud & DevOps</div>
                         <div class="skill-content">
-                            <span class="skill-pill">Amazon Web Services (AWS)</span>
+                            <span class="skill-pill">AWS</span>
                             <span class="skill-pill">Google Cloud (GCP)</span>
                             <span class="skill-pill">Kubernetes (K8s)</span>
                             <span class="skill-pill">Docker</span>
                             <span class="skill-pill">Terraform (IaC)</span>
-                            <span class="skill-pill">GitHub Actions (CI/CD)</span>
-                            <span class="skill-pill">Linux/Bash</span>
+                            <span class="skill-pill">GitHub Actions</span>
+                            <span class="skill-pill">CI/CD Pipelines</span>
                             <span class="skill-pill">Serverless</span>
+                            <span class="skill-pill">Linux/Bash</span>
                         </div>
                     </div>
                     <div class="skill-row">
@@ -627,25 +691,23 @@
                         <div class="skill-content">
                             <span class="skill-pill">PostgreSQL</span>
                             <span class="skill-pill">MySQL</span>
-                            <span class="skill-pill">MongoDB (NoSQL)</span>
+                            <span class="skill-pill">MongoDB</span>
                             <span class="skill-pill">Redis</span>
                             <span class="skill-pill">Elasticsearch</span>
-                            <span class="skill-pill">Query Optimization</span>
-                            <span class="skill-pill">Sharding</span>
-                            <span class="skill-pill">Pooling</span>
+                            <span class="skill-pill">DynamoDB</span>
                         </div>
                     </div>
                     <div class="skill-row">
-                        <div class="skill-label">Concepts & Practices</div>
+                        <div class="skill-label">Architecture & Concepts</div>
                         <div class="skill-content">
                             <span class="skill-pill">System Design</span>
                             <span class="skill-pill">Microservices</span>
                             <span class="skill-pill">Event-Driven Architecture</span>
+                            <span class="skill-pill">AI Integration</span>
+                            <span class="skill-pill">RESTful APIs</span>
                             <span class="skill-pill">DevSecOps</span>
-                            <span class="skill-pill">Unit & E2E Testing</span>
-                            <span class="skill-pill">Agile/Scrum</span>
-                            <span class="skill-pill">Performance Tuning</span>
-                            <span class="skill-pill">OAuth2/JWT</span>
+                            <span class="skill-pill">Agile/Scrum Leadership</span>
+                            <span class="skill-pill">Performance Optimization</span>
                         </div>
                     </div>
                 </div>
@@ -656,11 +718,15 @@
                 <div class="education-item">
                     <h4>Intensive Software Development Program</h4>
                     <div class="education-year">2016 - 2017</div>
-                    <p>Comprehensive training in Java, Android, backend development, and modern web technologies</p>
+                    <p><strong>Tel Ran, Israel:</strong> Comprehensive, boot-camp style training in Java, Android,
+                        backend development, and modern web technologies. Focus on deep understanding of memory
+                        management, algorithms, and design patterns.</p>
                 </div>
                 <div class="education-item">
                     <h4>Bachelor of Computer Science (BCS)</h4>
                     <div class="education-year">2011 - 2015</div>
+                    <p><strong>University of Technology, Russia:</strong> Strong foundation in computer science theory,
+                        mathematics, and software engineering principles.</p>
                 </div>
             </div>
 
@@ -683,6 +749,15 @@
             </div>
         </div>
     </div>
+    <script>
+        (function () {
+            const startYear = 2017;
+            const currentYear = new Date().getFullYear();
+            const years = currentYear - startYear;
+            const el = document.getElementById('exp-years');
+            if (el) el.textContent = years;
+        })();
+    </script>
 </body>
 
 </html>
