@@ -1,21 +1,43 @@
 #!/usr/bin/env bun
 
 import puppeteer from 'puppeteer';
-import path from 'path';
-import fs from 'fs';
 
 // Bun provides import.meta.dir for the current directory
-const __dirname = import.meta.dir;
+// We use simple string concatenation to avoid 'path' module
+const PROJECT_ROOT = `${import.meta.dir}/..`;
+const DIST_DIR = `${PROJECT_ROOT}/dist`;
+const OUTPUT_FILE = `${PROJECT_ROOT}/cv.pdf`;
 
 async function generatePDF(): Promise<void> {
-  const htmlFile = path.join(__dirname, '..', 'cv.html');
-  const outputFile = path.join(__dirname, '..', 'cv.pdf');
-
-  // Check if HTML file exists
-  if (!fs.existsSync(htmlFile)) {
-    console.error(`Error: ${htmlFile} not found`);
+  // Check if dist/index.html exists as a proxy for successful build/dist existence
+  const indexFile = Bun.file(`${DIST_DIR}/index.html`);
+  if (!(await indexFile.exists())) {
+    console.error(`Error: ${DIST_DIR}/index.html not found, check the build`);
     process.exit(1);
   }
+
+  console.log('Starting local server...');
+  const server = Bun.serve({
+    port: 0, // Random available port
+    fetch(req) {
+      const url = new URL(req.url);
+      let filePath = DIST_DIR + url.pathname;
+
+      // Serve index.html for root or if ends with slash
+      if (url.pathname === '/' || url.pathname.endsWith('/')) {
+        filePath = filePath.endsWith('/') ? `${filePath}index.html` : `${filePath}/index.html`;
+      }
+
+      const file = Bun.file(filePath);
+      return new Response(file);
+    },
+    error() {
+      return new Response('Not Found', { status: 404 });
+    },
+  });
+
+  const serverUrl = `http://localhost:${server.port}`;
+  console.log(`Server running at ${serverUrl}`);
 
   console.log('Launching browser...');
   const browser = await puppeteer.launch({
@@ -23,37 +45,31 @@ async function generatePDF(): Promise<void> {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage'
-    ]
+      '--disable-dev-shm-usage',
+    ],
   });
 
   try {
     const page = await browser.newPage();
-    
+
     // Set viewport to match typical browser window
-    // Width: 1200px to accommodate max-width: 900px container + padding (20px each side) + margins
     await page.setViewport({
       width: 1200,
-      height: 2000, // Initial height, will be adjusted
-      deviceScaleFactor: 2 // Higher DPI for crisp rendering
+      height: 2000,
+      deviceScaleFactor: 2,
     });
 
-    // Get absolute file path for local resources
-    const filePath = `file://${path.resolve(htmlFile)}`;
-    
-    console.log(`Loading HTML from ${filePath}...`);
-    await page.goto(filePath, {
+    console.log(`Loading HTML from ${serverUrl}...`);
+    await page.goto(serverUrl, {
       waitUntil: 'networkidle0',
-      timeout: 30000
+      timeout: 30000,
     });
 
     // CRITICAL: Force screen media type to match browser rendering (not print)
-    // This ensures @media print styles are NOT applied
     await page.emulateMediaType('screen');
 
     // Wait for fonts to be fully loaded
     await page.evaluate(() => {
-      // @ts-ignore - DOM APIs exist in browser context
       return document.fonts.ready;
     });
 
@@ -70,38 +86,35 @@ async function generatePDF(): Promise<void> {
         body, html {
           overflow: visible !important;
         }
-      `
+      `,
     });
 
-    // Get the exact rendered dimensions - use the actual scroll height
+    // Get the exact rendered dimensions
     const dimensions = await page.evaluate(() => {
-      // @ts-ignore - DOM APIs exist in browser context
       const body = document.body;
-      // @ts-ignore
       const html = document.documentElement;
-      
-      // Get the actual content height - use scrollHeight for accurate measurement
+
       const contentHeight = Math.max(
         body.scrollHeight,
         body.offsetHeight,
         html.scrollHeight,
         html.offsetHeight,
         body.getBoundingClientRect().height,
-        html.getBoundingClientRect().height
+        html.getBoundingClientRect().height,
       );
-      
+
       const contentWidth = Math.max(
         body.scrollWidth,
         body.offsetWidth,
         html.scrollWidth,
         html.offsetWidth,
         body.getBoundingClientRect().width,
-        html.getBoundingClientRect().width
+        html.getBoundingClientRect().width,
       );
-      
+
       return {
-        height: Math.ceil(contentHeight), // Round up to ensure no clipping
-        width: Math.ceil(contentWidth)
+        height: Math.ceil(contentHeight),
+        width: Math.ceil(contentWidth),
       };
     });
 
@@ -111,62 +124,61 @@ async function generatePDF(): Promise<void> {
     await page.setViewport({
       width: dimensions.width,
       height: dimensions.height,
-      deviceScaleFactor: 2
+      deviceScaleFactor: 2,
     });
 
     // Wait for reflow after viewport change
     await new Promise(resolve => setTimeout(resolve, 300));
 
-    // Verify dimensions one more time after viewport change
+    // Recalculate dimensions one last time
     const finalDimensions = await page.evaluate(() => {
-      // @ts-ignore
       const body = document.body;
-      // @ts-ignore
       const html = document.documentElement;
-      
+
       return {
         height: Math.max(
           body.scrollHeight,
           html.scrollHeight,
           body.getBoundingClientRect().height,
-          html.getBoundingClientRect().height
+          html.getBoundingClientRect().height,
         ),
         width: Math.max(
           body.scrollWidth,
           html.scrollWidth,
           body.getBoundingClientRect().width,
-          html.getBoundingClientRect().width
-        )
+          html.getBoundingClientRect().width,
+        ),
       };
     });
 
     console.log(`Final dimensions: ${finalDimensions.width}x${finalDimensions.height}px`);
+    console.log('Generating PDF...');
 
-    console.log('Generating PDF (single page, no breaks)...');
-
-    // Generate PDF with exact dimensions - single page, no breaks
     await page.pdf({
-      path: outputFile,
+      path: OUTPUT_FILE,
       width: `${finalDimensions.width}px`,
       height: `${finalDimensions.height}px`,
-      printBackground: true, // CRITICAL: Renders gradients, backgrounds, shadows
+      printBackground: true,
       margin: {
         top: '0px',
         right: '0px',
         bottom: '0px',
-        left: '0px'
+        left: '0px',
       },
-      preferCSSPageSize: false, // Use our exact dimensions, not CSS page size
+      preferCSSPageSize: false,
       displayHeaderFooter: false,
-      scale: 1 // No scaling - exact match
+      scale: 1,
     });
 
-    console.log(`PDF generated successfully: ${outputFile}`);
-  } catch (error) {
+    console.log(`PDF generated successfully: ${OUTPUT_FILE}`);
+  }
+  catch (error) {
     console.error('Error generating PDF:', error);
     process.exit(1);
-  } finally {
+  }
+  finally {
     await browser.close();
+    server.stop();
   }
 }
 
@@ -174,4 +186,3 @@ generatePDF().catch((error: unknown) => {
   console.error('Fatal error:', error);
   process.exit(1);
 });
-

@@ -1,0 +1,3 @@
+const CAREER_START_YEAR = 2016;
+
+export { CAREER_START_YEAR };
