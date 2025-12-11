@@ -1,18 +1,42 @@
 {
   "name": "volcmen-cv",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "module",
   "private": true,
   "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --max-warnings 0",
     "generate-pdf": "bun run scripts/generate-pdf.ts"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "24.31.0"
+    "@icons-pack/react-simple-icons": "13.8.0",
+    "@radix-ui/react-separator": "1.1.8",
+    "@radix-ui/react-slot": "1.2.4",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "preact": "10.28.0",
+    "preact-markup": "2.1.1",
+    "puppeteer": "24.32.1",
+    "snarkdown": "2.0.0",
+    "tailwind-merge": "3.4.0"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@preact/preset-vite": "2.10.2",
+    "@stylistic/eslint-plugin": "5.6.1",
+    "@tailwindcss/vite": "4.1.17",
+    "@types/bun": "1.3.4",
+    "eslint": "9.39.1",
+    "eslint-config-preact": "2.0.0",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import-x": "4.16.1",
+    "tailwindcss": "4.1.17",
+    "tw-animate-css": "1.4.0",
+    "typescript-eslint": "8.49.0",
+    "vite": "7.2.7"
   },
   "peerDependencies": {
     "typescript": "5.9.3"
