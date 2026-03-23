@@ -4,32 +4,34 @@ import { experience, type ExperienceItem } from '@/config/experience';
 
 type JobProps = ExperienceItem;
 
-function Job({ company, location, title, duration, achievements }: JobProps) {
+function Job({ company, location, title, duration, tagline, achievements }: JobProps) {
   return (
-    <div className="mb-6 border-b border-dashed border-slate-200 pb-4 last:mb-0 last:border-0 last:pb-0">
+    <div className="mb-7 last:mb-0">
       <div className="mb-2 flex flex-row items-baseline justify-between">
         <div>
-          <div className="text-lg font-bold leading-tight tracking-tight text-indigo-500">
+          <div className="text-lg font-bold leading-tight tracking-tight text-primary">
             {company}
             <span className="ml-2 text-sm font-medium text-muted-foreground">
               {location}
             </span>
           </div>
-          <div className="mt-1 text-base font-semibold leading-tight text-slate-700">{title}</div>
+          <div className="mt-1 text-base font-semibold leading-tight text-foreground">{title}</div>
+          {tagline && (
+            <div className="mt-0.5 text-sm italic text-muted-foreground">{tagline}</div>
+          )}
         </div>
-        <Badge variant="outline" className="rounded-xl border-violet-300 bg-gradient-to-br from-violet-50 to-violet-200 px-3 py-1 text-xs font-semibold text-violet-800 hover:border-violet-400 hover:text-violet-900">
+        <Badge variant="outline" className="shrink-0 rounded-lg border-primary/20 bg-accent px-3 py-1 text-xs font-semibold text-primary">
           {duration}
         </Badge>
       </div>
 
-      <div className="text-slate-700">
+      <div>
         <ul className="list-none pl-0">
           {achievements.map((achievement, index) => (
-            <li key={index} className="relative mb-1.5 pl-5 text-sm text-slate-700">
-              <span className="absolute left-0 top-0.5 text-lg font-bold leading-none text-indigo-500">•</span>
-              <strong>
+            <li key={index} className="relative mb-3 pl-5 text-base leading-relaxed text-secondary-foreground">
+              <span className="absolute left-0 top-1 text-base leading-none text-primary">•</span>
+              <strong className="font-semibold text-foreground">
                 {achievement.title}
-                :
               </strong>
               {' '}
               {/* eslint-disable-next-line react/no-danger -- allow for experience description */}
@@ -46,14 +48,14 @@ export function Experience() {
   return (
     <section className="mb-6">
       <div className="mb-4 flex items-center pb-1">
-        <h2 className="text-lg font-bold uppercase tracking-wider text-indigo-500">
+        <h2 className="text-xl font-bold uppercase tracking-wider text-primary">
           Professional Experience
         </h2>
       </div>
 
-      <Separator className="mb-4 bg-slate-200 h-0.5" />
+      <Separator className="mb-4 bg-border h-0.5" />
 
-      <div className="">
+      <div>
         {experience.map((item, index) => (
           <Job key={index} {...item} />
         ))}

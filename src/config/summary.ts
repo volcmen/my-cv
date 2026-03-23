@@ -1,6 +1,8 @@
 export const SUMMARY = {
-  text: `**Senior Software Engineer** with **{{YEARS}}+ years of experience** architecting and delivering high-scale, enterprise-grade applications.
-  Specialist in **Platform Engineering** and **Cloud Infrastructure (AWS/GCP)**, blending deep technical expertise with **System Design**, **AI Integration**, and **DevOps Automation**.
-  Successfully architected solutions supporting **100K+ active users** with **99.9% SLA reliability**.
-  Adept at bridging the gap between complex backend logic and intuitive user experiences, mentoring cross-functional teams, and driving technical innovation in high-velocity environments.`,
+  text: `I'm a **software engineer** who has spent the last **{{YEARS}}+ years** building platforms
+- from **observability systems** and **AI pipelines** to **compilers** and **game engines**
+- all of them built from the architecture down.
+I work across the stack, across languages, and across domains because that's where the most interesting problems live.
+I care about clean abstractions, thoughtful system design, and building things that still work long after I've moved on.
+I'm at my best when I can **own a system end to end** - and make it quietly excellent.`,
 };

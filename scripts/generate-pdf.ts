@@ -40,6 +40,7 @@ async function generatePDF(): Promise<void> {
   console.log(`Server running at ${serverUrl}`);
 
   console.log('Launching browser...');
+  // eslint-disable-next-line import-x/no-named-as-default-member
   const browser = await puppeteer.launch({
     headless: true,
     args: [

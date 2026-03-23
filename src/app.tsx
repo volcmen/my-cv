@@ -7,9 +7,9 @@ import { Languages } from './components/Languages';
 
 export function App() {
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8 font-sans text-slate-800">
+    <div className="min-h-screen bg-background px-4 py-8 font-sans text-foreground">
       <div className="mx-auto max-w-4xl">
-        <div className="overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-slate-900/5 border-0">
+        <div className="rounded-lg bg-card shadow-lg ring-1 ring-border border-0">
           <Header />
 
           <main className="p-6 space-y-6">

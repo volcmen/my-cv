@@ -1,5 +1,4 @@
 import { Card, CardContent } from '@/components/ui/card';
-import Markup from 'preact-markup';
 import snarkdown from 'snarkdown';
 
 import { CAREER_START_YEAR } from '@/config/career';
@@ -15,11 +14,10 @@ export function Summary() {
   const htmlContent = snarkdown(processedText);
 
   return (
-    <Card className="py-2 rounded-none rounded-r-sm border-0 border-l-4 border-indigo-500 bg-slate-50 shadow-none">
+    <Card className="py-2 rounded-none rounded-r-sm border-0 border-l-4 border-primary bg-accent/40 shadow-none">
       <CardContent>
-        <p className="text-base leading-relaxed text-slate-800">
-          <Markup markup={htmlContent} />
-        </p>
+        {/* eslint-disable-next-line react/no-danger -- preact-markup strips whitespace around <strong> tags */}
+        <p className="text-base leading-relaxed text-secondary-foreground" dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </CardContent>
     </Card>
   );

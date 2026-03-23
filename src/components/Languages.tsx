@@ -1,31 +1,28 @@
 import { Separator } from '@/components/ui/separator';
+import { LANGUAGES_DATA } from '@/config/languages';
 
 export function Languages() {
   return (
-    <section className="mb-6">
+    <section className="mb-3">
       <div className="mb-4 flex items-center pb-1">
-        <h2 className="text-lg font-bold uppercase tracking-wider text-indigo-500">
+        <h2 className="text-xl font-bold uppercase tracking-wider text-primary">
           Languages
         </h2>
       </div>
 
-      <Separator className="mb-4 bg-slate-200 h-0.5" />
+      <Separator className="mb-4 h-0.5 bg-border" />
 
-      <div className="grid grid-cols-3 gap-4">
-        <div className="m-0 border-l-2 border-slate-200 bg-transparent p-0 pl-4 text-left">
-          <h4 className="mb-0.5 text-base font-bold text-slate-800">Russian</h4>
-          <p className="text-base text-slate-700">Native</p>
-        </div>
-
-        <div className="m-0 border-l-2 border-slate-200 bg-transparent p-0 pl-4 text-left">
-          <h4 className="mb-0.5 text-base font-bold text-slate-800">English</h4>
-          <p className="text-base text-slate-700">Professional Proficiency</p>
-        </div>
-
-        <div className="m-0 border-l-2 border-slate-200 bg-transparent p-0 pl-4 text-left">
-          <h4 className="mb-0.5 text-base font-bold text-slate-800">Hebrew</h4>
-          <p className="text-base text-slate-700">Intermediate</p>
-        </div>
+      <div className="grid grid-cols-3 gap-5">
+        {LANGUAGES_DATA.map(lang => (
+          <div key={lang.name}>
+            <h4 className="text-base font-semibold tracking-tight text-foreground">
+              {lang.name}
+            </h4>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {lang.level}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

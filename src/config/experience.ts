@@ -3,6 +3,7 @@ export interface ExperienceItem {
   location: string;
   title: string;
   duration: string;
+  tagline?: string;
   achievements: {
     title: string;
     description: string;
@@ -13,52 +14,46 @@ export const experience: ExperienceItem[] = [
   {
     company: 'Alison.AI',
     location: 'Israel',
-    title: 'Full Stack & Platform Engineer',
+    title: 'Senior Software Engineer, Platform & AI',
+    tagline: 'AI ad-tech startup · Drum "Technical Innovation of the Year" · Senior-most platform hire',
     duration: '2023 - 2025',
     achievements: [
       {
-        title: 'High-Scale System Architecture',
-        description: 'Spearheaded the design and deployment of an automated data aggregation engine integrating multiple third-party APIs. This initiative reduced client activation time from <strong>days to minutes</strong>, enabling the Customer Success team to onboard <strong>50+ enterprise clients monthly</strong> with zero engineering intervention.',
+        title: 'Built the RAG and agentic AI system from scratch',
+        description: '- designed the full pipeline end-to-end: embedding, vector search, chunking, and autonomous LLM agents that extract creative insights from <strong>10K+ ad creatives/week</strong> across Meta, Google, and TikTok. Saved roughly 6 hours of manual work per client per day. Made all build-vs-buy calls on the AI stack.',
       },
       {
-        title: 'DevOps Transformation & CI/CD Modernization',
-        description: 'Architected enterprise-grade CI/CD pipelines for both existing and new microservices using <strong>GitHub Actions</strong> and <strong>Docker</strong>. Implemented industry best practices including automated testing, security scanning, artifact caching, and deployment strategies, resulting in a reduction in deployment time, and significantly enhanced developer velocity across the organization.',
+        title: 'Scaled client onboarding from 5 to 50+/month',
+        description: '- wrote an automated ingestion pipeline (TypeScript, Node.js) that connects <strong>10+ ad-platform APIs</strong> with auto-discovered schemas. Also owned the core React/TypeScript web app end-to-end.',
       },
       {
-        title: 'Security & Compliance Leadership',
-        description: 'Directed a comprehensive security overhaul, identifying and remediating <strong>100+ critical CVE vulnerabilities</strong> across the codebase. Established automated security scanning protocols to ensure continuous compliance and system integrity.',
+        title: 'Infrastructure and security',
+        description: '- moved everything to <strong>Terraform</strong> on GCP (Cloud Run, Cloud SQL, Pub/Sub), tightened CI/CD with GitHub Actions and SAST, fixed <strong>100+ CVEs</strong>, cut cloud spend by 30%, and helped get us through <strong>SOC 2</strong>.',
       },
       {
-        title: 'Platform Engineering & UI Performance',
-        description: 'Engineered a robust, pixel-perfect web platform using <strong>React, Node.js, Python, and TypeScript</strong>, delivering a responsive and intuitive UI/UX for a data-intensive AI application serving a global user base.',
-      },
-      {
-        title: 'Cloud Infrastructure Optimization',
-        description: 'Managed and optimized <strong>GCP cloud resources</strong>, implementing Infrastructure as Code (IaC) practices to facilitate seamless service migrations, dependency updates, and <strong>zero-downtime deployments</strong>.',
+        title: 'Technical leadership',
+        description: '- partnered with the CTO on roadmap and architecture. Set up code review and testing standards, mentored junior engineers, and pushed adoption of TypeScript, structured logging, and observability across the org.',
       },
     ],
   },
   {
     company: 'Datadog',
     location: 'Worldwide',
-    title: 'Senior Software Engineer',
+    title: 'Senior Software Engineer, Integration Lead',
+    tagline: 'Joined via Seekret acquisition to ship the integrated product as Universal Service Monitoring',
     duration: '2022 - 2023',
     achievements: [
       {
-        title: 'Post-Acquisition Integration',
-        description: 'Orchestrated the complex technical integration of Seekret\'s proprietary API observability technology into the Datadog ecosystem. Successfully migrated microservices and architected a unified, cohesive UI for <strong>enterprise-scale API monitoring</strong>.',
+        title: 'Shipped the post-acquisition integration to GA in under 3 months',
+        description: '- took <strong>12+ microservices</strong> from the acquired stack and integrated them into Datadog\'s platform (Kubernetes, Kafka pipelines, eBPF). Made the keep-vs-rewrite calls, re-architected what needed it, and shipped it as <strong>Universal Service Monitoring</strong>.',
       },
       {
-        title: 'High-Performance Frontend Engineering',
-        description: 'Developed and optimized React-based data visualization interfaces capable of handling <strong>millions of daily API requests</strong>. Implemented virtualized lists and efficient state management to ensure real-time observability performance.',
+        title: 'Made dashboards 50% faster',
+        description: '- rebuilt the React/TypeScript visualization layer with virtualized rendering and smart prefetching for <strong>millions of data points/day</strong>. The performance patterns we defined got adopted across the Dashboard and RUM teams.',
       },
       {
-        title: 'Cross-Product Collaboration',
-        description: 'Collaborated extensively with RUM, Dashboard, and Session Replay teams to deliver seamless cross-product features. Standardized engineering best practices and authored comprehensive technical documentation, significantly accelerating new hire onboarding and reducing knowledge silos.',
-      },
-      {
-        title: 'Distributed Systems Architecture',
-        description: 'Contributed to high-level architectural decisions for distributed systems, ensuring high availability, fault tolerance, and scalability across Datadog\'s global infrastructure.',
+        title: 'Knowledge transfer across 3 orgs',
+        description: '- ran sessions for 50+ engineers on how the acquired platform worked - eBPF internals, API design, the works. Wrote onboarding docs that <strong>cut ramp-up time from weeks to days</strong>. Owned on-call for the integrated services.',
       },
     ],
   },
@@ -66,95 +61,83 @@ export const experience: ExperienceItem[] = [
     company: 'Seekret (Acquired by Datadog)',
     location: 'Israel',
     title: 'Senior Full Stack Engineer',
+    tagline: 'eBPF-powered API observability startup · ~20 people · Acquired by Datadog in 2022',
     duration: '2021 - 2022',
     achievements: [
       {
-        title: 'Founding Engineer Role',
-        description: 'Played a pivotal role in building the core SaaS platform from the ground up, engineering a production-grade web application and services using <strong>Node.js, and Python</strong>. Built microservices using <strong>Go (Golang)</strong> and <strong>Rust</strong> to handle high-throughput data streams. Solved complex system design challenges to drive the company\'s acquisition.',
+        title: 'Early engineer in a team of fewer than 10',
+        description: '- joined a small team building an API observability product. Became the <strong>primary technical contact during Datadog\'s due diligence</strong>, screened 50+ candidates, and helped set the hiring bar as the company scaled.',
       },
       {
-        title: 'Product Excellence',
-        description: 'Collaborated closely with Product and Design teams to implement best-in-class web interfaces, achieving a <strong>95% user satisfaction score</strong> through meticulous attention to detail and user-centric design principles.',
+        title: 'Reshaped the distributed architecture',
+        description: '- inherited the early system and reworked key parts: introduced ClickHouse for analytics alongside PostgreSQL, moved to event-driven microservices, pushed for API-first contracts. Ran <strong>12+ services on Kubernetes</strong> with a polyglot stack — Node.js gateway, Go ingestion, Rust eBPF traffic capture, Python data pipelines.',
       },
       {
-        title: 'Reliability Engineering',
-        description: 'Owned service reliability and performance optimization, implementing comprehensive monitoring and alerting solutions (using Datadog and Sentry) to maintain a <strong>99.9% uptime SLA</strong>.',
+        title: 'Lead frontend engineer',
+        description: '- built data-dense <strong>React dashboards</strong> (API traffic visualization, dependency graphs, behavioral diffs) that directly helped close enterprise deals. 95% customer satisfaction.',
       },
       {
-        title: 'Security Best Practices',
-        description: 'Established foundational security practices, including automated dependency auditing, secure authentication flows (OAuth2/JWT), and role-based access control (RBAC).',
+        title: 'Owned reliability and CI/CD',
+        description: '- ran the full infra stack: Kubernetes deployments, CI/CD (went from weekly to <strong>multiple daily deploys</strong>), distributed tracing, alerting, p99 latency tuning through 10x traffic growth, and OAuth2/JWT auth.',
       },
     ],
   },
   {
-    company: 'CoderZ',
+    company: 'CoderZ (by Intelitek)',
     location: 'Israel',
     title: 'Full Stack Engineer',
+    tagline: 'CODiE Award-winning virtual robotics platform · 150K+ students in 30+ countries',
     duration: '2019 - 2021',
     achievements: [
       {
-        title: 'Post-Acquisition Integration & Game Engine',
-        description: 'Led the technical migration and integration of the acquired Mindflow multiplayer game created in Unity, into the CoderZ platform. Configured real-time multiplayer infrastructure and engineered a runtime execution engine enabling <strong>Scratch block code</strong> to drive gameplay logic directly within the game environment.',
+        title: 'Built a Scratch-to-EV3 compiler used by 150K+ students across 30+ countries',
+        description: '- designed a block-to-bytecode compiler (AST extraction, type resolution, EV3 code gen) that translates visual programs into robot-executable code. Adopted in <strong>Brazil\'s national SESI program</strong> and <strong>Singapore\'s National Robotics Competition</strong>.',
       },
       {
-        title: 'Compiler Design & Implementation',
-        description: 'Designed and implemented a custom cross-compiler translating Scratch-based visual programming blocks to Lego EV3/LeJOS Binary code. This innovation empowered <strong>100,000+ students globally</strong> to learn robotics and coding fundamentals.',
+        title: 'Scratch-to-Unity runtime engine',
+        description: '- stayed on after the Mindflow acquisition as primary technical owner. Built a runtime that interprets block-code ASTs inside Unity\'s game loop, powering <strong>real-time multiplayer classroom sessions</strong> with a Node.js WebSocket backend.',
       },
       {
-        title: 'Global CMS Architecture',
-        description: 'Built a comprehensive, custom Content Management System (CMS) from scratch, enabling seamless product internationalization across <strong>5+ languages</strong>. This directly contributed to a <strong>40% expansion</strong> in market reach.',
-      },
-      {
-        title: 'Test Automation Infrastructure',
-        description: 'Established a robust end-to-end test automation framework using <strong>Cypress</strong>. Authored <strong>500+ automated test cases</strong>, reducing manual QA cycles by <strong>60%</strong> and significantly improving release confidence.',
-      },
-      {
-        title: 'Scalable Backend Engineering',
-        description: 'Architected and maintained scalable Node.js backend services supporting an educational platform serving thousands of concurrent users with sub-second response times.',
+        title: 'Opened new markets with i18n and testing',
+        description: '- built a CMS with full i18n and RTL/LTR support for 5+ languages, which opened MENA and European markets. Set up E2E testing with <strong>500+ Cypress tests</strong> that became the team\'s quality baseline.',
       },
     ],
   },
   {
-    company: 'Mindflow (Acquired by CoderZ)',
+    company: 'Mindflow (Acquired by CoderZ, 2019)',
     location: 'Israel',
-    title: 'Software Engineer',
+    title: 'Engineering Lead (Full Stack)',
+    tagline: 'Product engineering studio · Acquired by CoderZ on the strength of its game engine',
     duration: '2018 - 2019',
     achievements: [
       {
-        title: 'Full Stack Dashboard Development',
-        description: 'Developed enterprise-grade dashboards and data visualization systems, owning the full stack from React frontend to Node.js backend.',
+        title: 'Built the product that led to the acquisition',
+        description: '- architected a real-time multiplayer engine in Unity with a custom <strong>Rust networking layer</strong> (picked for memory safety and low latency). This was the flagship deliverable that led CoderZ to acquire the entire studio.',
       },
       {
-        title: 'Game Development & Networking',
-        description: 'Developed a multiplayer <strong>Unity</strong> game with real-time <strong>Rust</strong> networking, ensuring smooth synchronization for competitive gameplay.',
+        title: 'Promoted to Engineering Lead within months',
+        description: '- led a 4-person team. Owned technical direction, architecture reviews, sprint planning, and client-facing scoping across concurrent engagements.',
       },
       {
-        title: 'Legacy Modernization',
-        description: 'Modernized a legacy C++ desktop app to <strong>Electron</strong>, revitalizing the UI and enabling cross-platform support for Windows and macOS.',
-      },
-      {
-        title: 'Search Engine Implementation',
-        description: 'Engineered a search solution using <strong>Elasticsearch</strong>, enabling rapid data analytics for massive enterprise datasets.',
+        title: 'Shipped across 5+ technology domains',
+        description: '- <strong>React + Node.js</strong> enterprise dashboards with real-time visualization, Elasticsearch analytics with sub-second queries over millions of records, and a C++-to-Electron desktop migration.',
       },
     ],
   },
   {
-    company: 'Early Career Experience',
-    location: 'Worldwide',
+    company: 'Independent Software Consulting',
+    location: 'Israel & Remote',
     title: 'Full Stack Developer',
+    tagline: '10+ client engagements for startups and enterprise',
     duration: '2016 - 2018',
     achievements: [
       {
-        title: 'Freelance Consultant',
-        description: 'Delivered diverse software solutions for multiple clients, leveraging the modern JavaScript ecosystem (React, Angular, Vue.js, Node.js, GraphQL, React Native) to meet specific business needs.',
+        title: 'Ran an independent practice for 2 years',
+        description: '- scoped, designed, and shipped production systems end-to-end for startup and enterprise clients (React, Node.js, GraphQL, React Native). 10+ engagements total.',
       },
       {
-        title: 'Beatman',
-        description: 'Contributed to the implementation of serverless architectures and engineered the high-performance <strong>myOfer</strong> Progressive Web Apps (PWA), ensuring offline capabilities and mobile-first experiences.',
-      },
-      {
-        title: 'Comversion',
-        description: 'Built core admin dashboards using <strong>AngularJS</strong> and contributed to Node.js backend infrastructure for a startup environment.',
+        title: 'myOfer PWA for Israel\'s largest mall operator',
+        description: '- architected a serverless Progressive Web App for <strong>Israel\'s largest mall group</strong> (18 malls, TA-35 listed) with offline-first caching and push notifications. Delivered through Beatman agency.',
       },
     ],
   },
