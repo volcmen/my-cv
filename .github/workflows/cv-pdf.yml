@@ -2,24 +2,27 @@ name: Generate CV PDF
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'src/**'
+      - 'scripts/**'
       - 'package.json'
+      - '.github/workflows/cv-pdf.yml'
   pull_request:
     paths:
       - 'src/**'
+      - 'scripts/**'
       - 'package.json'
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
 
 jobs:
   generate-pdf:
     name: Generate PDF from HTML
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
-      contents: write # Required to create tags and releases
-    
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,13 +37,12 @@ jobs:
       - name: Restore Bun cache
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.bun/install/cache
+          path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
-          restore-keys: |
+          restore-keys: ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Build
         run: bun run build
@@ -54,15 +56,17 @@ jobs:
           name: cv-pdf
           path: cv.pdf
 
-      - name: Get version
+      - name: Detect version bump
         id: version
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push'
         run: |
-          VERSION=$(bun -e "const pkg = await Bun.file('package.json').json(); console.log(pkg.version);")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          
-          PREVIOUS=$(git show HEAD~1:package.json 2>/dev/null | bun -e "const pkg = await Bun.file(0).json(); console.log(pkg.version);" 2>/dev/null || echo "")
-          [ "$PREVIOUS" != "$VERSION" ] && echo "changed=true" >> $GITHUB_OUTPUT
+          VERSION=$(jq -r .version package.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          PREVIOUS=$(git show HEAD~1:package.json 2>/dev/null | jq -r .version 2>/dev/null || echo "")
+          if [ "$PREVIOUS" != "$VERSION" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Create Release
         if: steps.version.outputs.changed == 'true'
