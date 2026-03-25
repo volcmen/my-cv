@@ -16,9 +16,9 @@ export function App() {
             <Summary />
 
             <div>
+              <Skills />
               <Experience />
 
-              <Skills />
               <Education />
               <Languages />
             </div>
